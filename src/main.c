@@ -4,27 +4,31 @@
 #include "..\include\lista.h"
 #include "..\include\prato.h"
 #include "..\include\cardapio.h"
+#include "..\include\fila.h"
 
 void menu()
 {
     printf("\n--- Menu Lista ---\n");
-    printf("1. Inserir no fim\n");
-    printf("2. Remover por valor\n");
-    printf("3. Buscar valor\n");
+    printf("1. Ver cardapio\n");
+    printf("2. Enviar pedido para a cozinha\n");
+    printf("3. Mostra pedidos na cozinha\n");
     printf("4. Imprimir lista\n");
     printf("5. Sair\n");
-    printf("Escolha uma opção: ");
+    printf("Escolha uma opcao: ");
 }
 
 int main()
 {
-    No *lista = NULL;
+    No *pedido = NULL;
+    Fila fila;
     Prato prato;
     int opcao;
     int op_cardapio; // opção dos cardápios
     int resposta, qtd;
     char buffer[100];
     int pos;
+
+    inicializar_fila(&fila);
 
     do
     {
@@ -35,7 +39,7 @@ int main()
         switch (opcao)
         {
         case 1:
-            printf("Qual é o cardápio que você deseja acessar: 1- Entrada, 2- Principais, 3 - Sobremesa:\n");
+            printf("Qual e o cardapio que voce deseja acessar: 1- Entrada, 2- Principais, 3 - Sobremesa:\n");
             scanf("%d", &op_cardapio);
             getchar(); // limpa buffer
 
@@ -47,8 +51,8 @@ int main()
                 printf("Qual quantidade?\n");
                 scanf("%d", &qtd);
                 criar_prato(entrada[resposta - 1], qtd, &prato);
-                insercao_no_fim_da_lsl(&lista, prato);
-                printf("Prato inserido no início.\n");
+                insercao_no_fim_da_lsl(&pedido, prato);
+                printf("Prato inserido no inicio.\n");
 
                 break;
 
@@ -58,8 +62,8 @@ int main()
                 printf("Qual quantidade?\n");
                 scanf("%d", &qtd);
                 criar_prato(principal[resposta - 1], qtd, &prato);
-                insercao_no_fim_da_lsl(&lista, prato);
-                printf("Prato inserido no início.\n");
+                insercao_no_fim_da_lsl(&pedido, prato);
+                printf("Prato inserido no inicio.\n");
 
                 break;
 
@@ -69,8 +73,8 @@ int main()
                 printf("Qual quantidade?\n");
                 scanf("%d", &qtd);
                 criar_prato(sobremesa[resposta - 1], qtd, &prato);
-                insercao_no_fim_da_lsl(&lista, prato);
-                printf("Prato inserido no início.\n");
+                insercao_no_fim_da_lsl(&pedido, prato);
+                printf("Prato inserido no inicio.\n");
 
                 break;
 
@@ -80,22 +84,32 @@ int main()
             }
             break;
 
-        /*case 2:
-            printf("Digite o prato para remover: ");
-            fgets(buffer, sizeof(buffer), stdin);
-            buffer[strcspn(buffer, "\n")] = 0;
-            remocao_no_meio_da_lsl(&lista, buffer);
+        case 2:
+    
+            if(pedido == NULL) {
+                printf("Nao existem pratos inseridos no pedido, insira algum prato para enviar para a cozinha!\n");
+                break;
+            }
+
+            //Copiamos a lista original e enviamos para a fila
+            No* copia_do_pedido = copiar_lista(pedido);
+            inserir_fila(&fila, copia_do_pedido);
+
+            //esvaziamos a lista para poder fazer um novo pedido
+            while (pedido != NULL) {
+                remocao_no_inicio_da_lsl(&pedido);
+            }
+
+            printf("Pedido enviado para a cozinha com sucesso!\n");
             break;
 
         case 3:
-            printf("Digite o prato para buscar: ");
-            fgets(buffer, sizeof(buffer), stdin);
-            buffer[strcspn(buffer, "\n")] = 0;
-            busca_por_valor_na_lsl(lista, buffer);
+            printf("Pedidos na cozinha:\n");
+            exibir_fila(&fila);
             break;
-*/
+
         case 4:
-            imprime_a_lsl(lista);
+            imprime_a_lsl(pedido);
             break;
 
         case 5:
@@ -108,9 +122,9 @@ int main()
 
     } while (opcao != 5);
 
-    while (lista != NULL)
+    while (pedido != NULL)
     {
-        remocao_no_inicio_da_lsl(&lista);
+        remocao_no_inicio_da_lsl(&pedido);
     }
 
     return 0;

@@ -199,3 +199,18 @@ void imprime_a_lsl(No *cabeca)
   }
   printf("\n");
 }
+
+// funcao para retornar uma copia da lista original
+No* copiar_lista(No* original) {
+    if (original == NULL) return NULL;
+
+    No* nova_lista = NULL;
+    No* atual = original;
+
+    while (atual != NULL) {
+        insercao_no_fim_da_lsl(&nova_lista, atual->prato);
+        atual = atual->proximo;
+    }
+
+    return nova_lista;
+}
