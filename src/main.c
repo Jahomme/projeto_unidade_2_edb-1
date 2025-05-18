@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "lista.h"
+#include "include\lista.h"
 
 void menu() {
     printf("\n--- Menu Lista ---\n");
