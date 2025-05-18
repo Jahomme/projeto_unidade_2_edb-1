@@ -15,5 +15,6 @@ void remocao_no_fim_da_lsl(No **cabeca);
 void remocao_no_meio_da_lsl(No **cabeca, const Prato prato);
 void busca_por_valor_na_lsl(No *cabeca, const Prato prato);
 void imprime_a_lsl(No *cabeca);
+No *copiar_lista(No *original);
 
 #endif 
