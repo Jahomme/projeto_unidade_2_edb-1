@@ -8,11 +8,11 @@
 
 void menu()
 {
-    printf("\n--- Menu Lista ---\n");
+    printf("\n--- Menu Principal ---\n");
     printf("1. Atender cliente\n");
-    printf("2. Enviar pedido para a cozinha\n");
-    printf("3. Mostra pedidos na cozinha\n");
-    printf("4. Imprimir lista\n");
+    printf("2. Mostrar lista de pedidos\n");
+    printf("3. Mostrar pedidos na cozinha\n");
+    printf("4. Liberar pedido da cozinha\n");
     printf("5. Sair\n");
     printf("Escolha uma opcao: ");
 }
@@ -22,7 +22,7 @@ void atendimento() {
     printf("1. Exibir cardapio\n");
     printf("2. Enviar pedido para a cozinha\n");
     printf("3. Exibir pedido\n");
-    printf("4. Sair\n");
+    printf("4. Voltar ao menu principal\n");
     printf("Escolha uma opcao: ");
 }
 
@@ -121,10 +121,15 @@ int main()
                         }
 
                         printf("Pedido enviado para a cozinha com sucesso!\n");
+                        op_atendimento = 4;
                         break;
 
                     case 3:
                         imprime_a_lsl(pedido);
+                        break;
+
+                    case 4:
+                        printf("Voltando...");
                         break;
 
                     default:
@@ -133,23 +138,9 @@ int main()
                     }
             } while (op_atendimento != 4);
 
+            break;
         case 2:
-    
-            if(pedido == NULL) {
-                printf("Nao existem pratos inseridos no pedido, insira algum prato para enviar para a cozinha!\n");
-                break;
-            }
-
-            //Copiamos a lista original e enviamos para a fila
-            No* copia_do_pedido = copiar_lista(pedido);
-            inserir_fila(&fila, copia_do_pedido);
-
-            //esvaziamos a lista para poder fazer um novo pedido
-            while (pedido != NULL) {
-                remocao_no_inicio_da_lsl(&pedido);
-            }
-
-            printf("Pedido enviado para a cozinha com sucesso!\n");
+            printf("Lista de pedidos:\n");
             break;
 
         case 3:
@@ -158,7 +149,13 @@ int main()
             break;
 
         case 4:
-            imprime_a_lsl(pedido);
+            if (fila_vazia(&fila)) {
+                printf("Nao existem pedidos na cozinha!\n");
+                break;
+            }
+
+            printf("Pedido que saiu para o salao: ");
+            imprime_a_lsl(remover_fila(&fila));
             break;
 
         case 5:
