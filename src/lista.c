@@ -1,186 +1,76 @@
 #include <stdio.h>
-#include <string.h>
 #include <stdlib.h>
 #include "..\include\lista.h"
+#include "..\include\prato.h"
 
-// Função de inserção no início da lista.
-void insercao_no_inicio_da_lsl(No **cabeca, const Prato prato)
+// Cria um novo nó pedido e adiciona no final da lista
+void criar_novo_no(No **cabeca)
 {
-  No *novo_no = malloc(sizeof(No));
+    No *novo_no = malloc(sizeof(No));
+    if (novo_no == NULL)
+    {
+        printf("Erro ao alocar memória para novo pedido.\n");
+        return;
+    }
 
-  novo_no->prato = prato;
+    novo_no->pratos = NULL;
+    novo_no->qtd_total_pratos = 0;
+    novo_no->proximo = NULL;
 
-  novo_no->proximo = *cabeca;
-  *cabeca = novo_no;
+    if (*cabeca == NULL)
+    {
+        *cabeca = novo_no;
+    }
+    else
+    {
+        No *atual = *cabeca;
+        while (atual->proximo != NULL)
+            atual = atual->proximo;
+        atual->proximo = novo_no;
+    }
 }
 
-// Função de inserção no fim da lista.
-void insercao_no_fim_da_lsl(No **cabeca, const Prato prato)
+// Retorna o último nó da lista
+No* obter_ultimo_no(No* cabeca)
 {
-  No *novo_no = malloc(sizeof(No));
-  novo_no->prato = prato;
+    if (cabeca == NULL)
+        return NULL;
 
-  novo_no->proximo = NULL;
-
-  if (*cabeca == NULL)
-  {
-    *cabeca = novo_no;
-    return;
-  }
-
-  No *atual = *cabeca;
-
-  while (atual->proximo != NULL)
-  {
-    atual = atual->proximo;
-  }
-
-  atual->proximo = novo_no;
+    No *atual = cabeca;
+    while (atual->proximo != NULL)
+        atual = atual->proximo;
+    return atual;
 }
 
-// Função de inserção em uma posição intermediária da lista.
-void insercao_no_meio_da_lsl(No **cabeca, const Prato prato, int posicao)
+// Adiciona um prato ao pedido (nó) passado
+void adicionar_prato_ao_pedido(No *pedido, Prato prato)
 {
-  if (posicao == 0)
-  {
-    insercao_no_inicio_da_lsl(cabeca, prato);
-    return;
-  }
-
-  No *anterior = NULL;
-  No *atual = *cabeca;
-  int i = 0;
-
-  while (atual != NULL && i < posicao)
-  {
-    anterior = atual;
-    atual = atual->proximo;
-    i++;
-  }
-
-  if (atual == NULL)
-  {
-    printf("Posição inválida!\n");
-    return;
-  }
-
-  No *novo_no = malloc(sizeof(No));
-  novo_no->prato = prato;
-  novo_no->proximo = atual;
-
-  if (anterior != NULL)
-  {
-    anterior->proximo = novo_no;
-  }
-  else
-  {
-    *cabeca = novo_no;
-  }
+    Prato *temp = realloc(pedido->pratos, (pedido->qtd_total_pratos + 1) * sizeof(Prato));
+    if (temp == NULL)
+    {
+        printf("Erro ao realocar memória para prato.\n");
+        return;
+    }
+    pedido->pratos = temp;
+    pedido->pratos[pedido->qtd_total_pratos] = prato;
+    pedido->qtd_total_pratos++;
 }
 
-// Função de remoção no início da lista.
+// Remove o nó do início da lista e libera memória dos pratos
 void remocao_no_inicio_da_lsl(No **cabeca)
 {
-  if (*cabeca == NULL)
-  {
-    printf("A lista está vazia!\n");
-    return;
-  }
+    if (*cabeca == NULL)
+        return;
 
-  No *temp = *cabeca;
-  *cabeca = (*cabeca)->proximo;
-  free(temp);
+    No *temp = *cabeca;
+    *cabeca = temp->proximo;
+
+    if (temp->pratos != NULL)
+        free(temp->pratos);
+    free(temp);
 }
 
-// Função de remoção no fim da lista.
-void remocao_no_fim_da_lsl(No **cabeca)
-{
-  if (*cabeca == NULL || (*cabeca)->proximo == NULL)
-  {
-    remocao_no_inicio_da_lsl(cabeca);
-    return;
-  }
-
-  No *anterior = NULL;
-  No *atual = *cabeca;
-
-  while (atual->proximo != NULL)
-  {
-    anterior = atual;
-    atual = atual->proximo;
-  }
-
-  anterior->proximo = NULL;
-
-  free(atual);
-}
-
-// Função de remoção em uma posição intermediária da lista.
-void remocao_no_meio_da_lsl(No **cabeca, const Prato prato)
-{
-  if (*cabeca == NULL)
-  {
-    printf("Lista vazia!\n");
-    return;
-  }
-
-  No *anterior = NULL;
-  No *atual = *cabeca;
-
-  while (atual != NULL)
-  {
-    // Comparar prato atual com o prato recebido — suposição: comparar pelo nome
-    if (strcmp(atual->prato.nome_prato, prato.nome_prato) == 0)
-    {
-      // Nó encontrado: remover
-      if (anterior == NULL)
-      {
-        *cabeca = atual->proximo;
-      }
-      else
-      {
-        anterior->proximo = atual->proximo;
-      }
-      free(atual);
-      printf("Prato %s removido da lista.\n", prato.nome_prato);
-      return;
-    }
-    anterior = atual;
-    atual = atual->proximo;
-  }
-  printf("Prato %s não encontrado na lista.\n", prato.nome_prato);
-}
-
-// Busca por prato na lista
-void busca_por_valor_na_lsl(No *cabeca, const Prato prato)
-{
-  No *atual = cabeca;
-
-  while (atual != NULL)
-  {
-    if (strcmp(atual->prato.nome_prato, prato.nome_prato) == 0)
-    {
-      printf("Prato %s encontrado!\n", prato.nome_prato);
-      return;
-    }
-    atual = atual->proximo;
-  }
-
-  printf("Prato %s não encontrado!\n", prato.nome_prato);
-}
-
-// Função de varredura da lista.
-// void percorre_a_lsl(No *cabeca){
-//   No *atual = cabeca;
-//   int total = 0;
-
-//   while(atual != NULL){
-//     total = total + atual->prato;
-//     atual = atual->proximo;
-//   }
-//   printf("Total = %d.\n", total);
-// }
-
+// Imprime a lista de pedidos e seus pratos
 // Função de impressão de valores da lista.
 void imprime_a_lsl(No *cabeca)
 {
@@ -191,26 +81,17 @@ void imprime_a_lsl(No *cabeca)
   }
 
   No *atual = cabeca;
-
+  int mesa = 1;
+  printf("\n");
   while (atual != NULL)
   {
-    printf("%s - Quantidade: %d\n", atual->prato.nome_prato, atual->prato.qtd_prato);
+    printf("Mesa %d:\n", mesa);
+    for (int i = 0; i < atual->qtd_total_pratos; i++)
+    {
+      printf("%s - Quantidade: %d\n", atual->pratos[i].nome_prato, atual->pratos[i].qtd_prato);
+    }
     atual = atual->proximo;
+    mesa++;
   }
   printf("\n");
-}
-
-// funcao para retornar uma copia da lista original
-No* copiar_lista(No* original) {
-    if (original == NULL) return NULL;
-
-    No* nova_lista = NULL;
-    No* atual = original;
-
-    while (atual != NULL) {
-        insercao_no_fim_da_lsl(&nova_lista, atual->prato);
-        atual = atual->proximo;
-    }
-
-    return nova_lista;
 }
