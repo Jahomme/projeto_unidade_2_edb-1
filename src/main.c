@@ -124,7 +124,38 @@ int main()
             break;
 
         case 3:
+            printf("Qual é o prato que você quer remover? 1- Entrada, 2- Principais, 3 - Sobremesa:\n");
+            scanf("%d", &op_cardapio);
+            getchar(); // limpa buffer
 
+            switch (op_cardapio)
+            {
+            case 1:
+                cardapio_entrada();
+                scanf("%d", &resposta);
+                printf("Qual quantidade?\n");
+                scanf("%d", &qtd);
+                remover_prato_do_pedido(entrada[resposta - 1], qtd, pedido_atual);
+                break;
+            case 2:
+                cardapio_principal();
+                scanf("%d", &resposta);
+                printf("Qual quantidade?\n");
+                scanf("%d", &qtd);
+                remover_prato_do_pedido(principal[resposta - 1], qtd, pedido_atual);
+                break;
+            case 3:
+                cardapio_sobremesa();
+                scanf("%d", &resposta);
+                printf("Qual quantidade?\n");
+                scanf("%d", &qtd);
+                remover_prato_do_pedido(sobremesa[resposta - 1], qtd, pedido_atual);
+                break;
+            default:
+                printf("Não existe a opção desejada!\n");
+                break;
+            }
+            break;
         case 4:
             imprime_a_lsl(pedido); // Imprime todos os pedidos com seus pratos
             break;
