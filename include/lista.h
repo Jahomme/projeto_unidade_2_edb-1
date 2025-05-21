@@ -6,7 +6,7 @@
 typedef struct No
 {
     Prato *pratos;          
-    int qtd_total_pratos;   
+    int qtd_total_pratos;
     struct No *proximo;     
 } No;
 

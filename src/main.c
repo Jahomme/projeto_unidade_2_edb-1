@@ -11,15 +11,16 @@ void menuSalao()
     printf("\n--- Menu Lista ---\n");
     printf("1. Ver cardapio\n");
     printf("2. Finalizar pedido.\n");
-    printf("3. Imprimir lista\n");
-    printf("4. Sair\n");
+    printf("3. Remover item do pedido.\n");
+    printf("4. Imprimir lista\n");
+    printf("5. Sair\n");
     printf("Escolha uma opção: ");
 }
 
 int main()
 {
-    No *pedido = NULL;          // Ponteiro para o início da lista de pedidos
-    No *pedido_atual = NULL;    // Ponteiro para o nó onde serão inseridos os pratos do pedido atual
+    No *pedido = NULL;       // Ponteiro para o início da lista de pedidos
+    No *pedido_atual = NULL; // Ponteiro para o nó onde serão inseridos os pratos do pedido atual
 
     Fila fila;
     Prato prato;
@@ -55,7 +56,7 @@ int main()
                 // Se não existe pedido atual, cria um novo nó para o pedido
                 if (pedido_atual == NULL)
                 {
-                    criar_novo_no(&pedido);  // cria o primeiro nó ou novo nó no final da lista
+                    criar_novo_no(&pedido);                 // cria o primeiro nó ou novo nó no final da lista
                     pedido_atual = obter_ultimo_no(pedido); // pedido_atual aponta para o último nó criado
                 }
 
@@ -123,10 +124,12 @@ int main()
             break;
 
         case 3:
-            imprime_a_lsl(pedido);  // Imprime todos os pedidos com seus pratos
-            break;
 
         case 4:
+            imprime_a_lsl(pedido); // Imprime todos os pedidos com seus pratos
+            break;
+
+        case 5:
             printf("Saindo...\n");
             break;
 
@@ -134,7 +137,7 @@ int main()
             printf("Opção inválida!\n");
         }
 
-    } while (opcao != 4);
+    } while (opcao != 5);
 
     // Liberar memória da lista de pedidos ao sair
     while (pedido != NULL)

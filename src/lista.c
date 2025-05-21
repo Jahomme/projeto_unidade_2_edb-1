@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "..\include\lista.h"
 #include "..\include\prato.h"
 
@@ -45,6 +46,13 @@ No* obter_ultimo_no(No* cabeca)
 // Adiciona um prato ao pedido (nó) passado
 void adicionar_prato_ao_pedido(No *pedido, Prato prato)
 {
+    for(int i = 0; i < pedido->qtd_total_pratos; i++){
+        if (strcmp(prato.nome_prato, pedido->pratos[i].nome_prato) == 0) { //Verifica se o prato já existe
+        pedido->pratos[i].qtd_prato++;
+        return;
+        }
+    }
+
     Prato *temp = realloc(pedido->pratos, (pedido->qtd_total_pratos + 1) * sizeof(Prato));
     if (temp == NULL)
     {
