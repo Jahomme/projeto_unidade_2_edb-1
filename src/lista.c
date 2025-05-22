@@ -198,13 +198,17 @@ void remover_prato_do_pedido(const char *nome, int qtd, No *pedido)
 void remocao_no_inicio(No **cabeca)
 {
     if (*cabeca == NULL)
+    {
         return;
+    }
 
     No *temp = *cabeca;
     *cabeca = temp->proximo;
 
     if (temp->pratos != NULL)
+    {
         free(temp->pratos);
+    }
     free(temp);
 }
 
