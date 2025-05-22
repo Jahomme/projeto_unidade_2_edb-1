@@ -195,7 +195,7 @@ void remover_prato_do_pedido(const char *nome, int qtd, No *pedido)
 }
 
 // Remove o nó do início da lista e libera memória dos pratos
-void remocao_no_inicio_da_lsl(No **cabeca)
+void remocao_no_inicio(No **cabeca)
 {
     if (*cabeca == NULL)
         return;

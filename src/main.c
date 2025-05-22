@@ -192,7 +192,7 @@ int main()
                     No *copia_do_pedido = copiar_no(pedido);
                     inserir_fila(&fila, copia_do_pedido);
 
-                    remocao_no_inicio_da_lsl(&pedido);
+                    remocao_no_inicio(&pedido);
 
                     printf("Pedido enviado para a cozinha com sucesso!\n");
                     break;
@@ -245,7 +245,7 @@ int main()
     // Liberar memória da lista de pedidos ao sair
     while (pedido != NULL)
     {
-        remocao_no_inicio_da_lsl(&pedido);
+        remocao_no_inicio(&pedido);
     }
 
     return 0;
