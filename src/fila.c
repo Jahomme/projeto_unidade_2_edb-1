@@ -47,7 +47,6 @@ void inserir_fila(Fila* fila, No* lista)
 No* remover_fila(Fila* fila)
 {
   if(fila_vazia(fila)){
-    printf("A fila está vazia!\n");
     return NULL;
   }else{
     No* lista_removida = fila->dados[0];

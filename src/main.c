@@ -134,13 +134,13 @@ int main()
                                 pedido_atual = NULL; // Ao finalizar, zera o pedido_atual para criar novo pedido depois
                                 break;
                             }
-                            else
-                            {
-                                printf("\nOpção inválida.\n");
+
+                            else{
+                                printf("Opção inválida.\n");
                             }
                         }
 
-                        while (opcao != 3);
+                        while (opcao != 2 || opcao != 1);
                     }
                     break;
 
@@ -247,6 +247,11 @@ int main()
     {
         remocao_no_inicio(&pedido);
     }
+    No *pedido_percorrer = remover_fila(&fila);
 
+    while(pedido_percorrer != NULL){
+        remocao_no_inicio(&pedido_percorrer);
+        pedido_percorrer = remover_fila(&fila);
+    }
     return 0;
 }
