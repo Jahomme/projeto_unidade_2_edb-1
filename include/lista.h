@@ -18,5 +18,7 @@ void adicionar_prato_ao_pedido(No *pedido, Prato prato);
 void remover_prato_do_pedido(const char *nome, int qtd, No *pedido);
 void remocao_no_inicio_da_lsl(No **cabeca);
 void imprime_a_lsl(No *cabeca);
+void imprime_a_lsl_fila(No *cabeca);
+
 
 #endif

@@ -123,6 +123,7 @@ int main()
                             inserir_fila(&fila, copia_do_pedido);
                             remover_no(&pedido, pedido_atual);
                             pedido_atual = NULL;
+                            printf("Pedido enviado para a cozinha com sucesso!\n");
                         }
                         else if (opcao == 2)
                         {
@@ -200,13 +201,34 @@ int main()
                 }
             } while (opcao != 6);
         }
+
         else if (opcao == 2)
         {
+            do
+            {
+                menuCozinha();
+                scanf("%d", &opcao);
+                getchar();
+                switch (opcao)
+                {
+                case 1:
+                    exibir_fila(&fila);
+                    break;
+                case 2:
+                    printf("Saindo...\n");
+                    break;
+                default:
+                    printf("Opção inválida.\n");
+                    break;
+                }
+            } while (opcao != 2);
         }
+
         else if (opcao == 3)
         {
             printf("Saindo...");
         }
+
         else
         {
             printf("Opção inválida.");

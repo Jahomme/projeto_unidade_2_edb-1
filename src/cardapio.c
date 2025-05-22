@@ -22,7 +22,9 @@ void menuSalao()
 }
 void menuCozinha()
 {
+    printf("\n--- Menu Lista ---\n");
     printf("1. Imprimir lista da cozinha.\n");
+    printf("2. Sair\n");
 }
 
 void cardapio_entrada()
@@ -59,27 +61,25 @@ void cardapio_sobremesa()
 }
 
 const char *entrada[5] = {
-    "Sopa de Cebola", // 0
-    "Salada Caesar", // 1
-    "Bruschetta", // 2
+    "Sopa de Cebola",     // 0
+    "Salada Caesar",      // 1
+    "Bruschetta",         // 2
     "Carpaccio de Carne", // 3
-    "Camarão ao Alho", // 4
+    "Camarão ao Alho",    // 4
 };
 
 const char *principal[5] = {
-    "Lasanha à Bolonhesa", // 0
-    "Filé Mignon com Fritas", // 1
+    "Lasanha à Bolonhesa",         // 0
+    "Filé Mignon com Fritas",      // 1
     "Frango Grelhado com Legumes", // 2
-    "Bacalhau à Gomes de Sá", // 3
-    "Risoto de Cogumelos", // 4
+    "Bacalhau à Gomes de Sá",      // 3
+    "Risoto de Cogumelos",         // 4
 };
 
 const char *sobremesa[5] = {
-    "Tiramisu", // 0
-    "Cheesecake de Frutas Vermelhas", // 1
-    "Mousse de Chocolate", // 2
-    "Pudim de Leite", // 3
+    "Tiramisu",                                 // 0
+    "Cheesecake de Frutas Vermelhas",           // 1
+    "Mousse de Chocolate",                      // 2
+    "Pudim de Leite",                           // 3
     "Sorvete de Baunilha com Calda de Morango", // 4
 };
-
-

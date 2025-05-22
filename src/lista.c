@@ -232,3 +232,23 @@ void imprime_a_lsl(No *cabeca)
     }
     printf("\n");
 }
+
+void imprime_a_lsl_fila(No *cabeca)
+{
+    if (cabeca == NULL)
+    {
+        printf("Lista vazia!\n");
+        return;
+    }
+
+    No *atual = cabeca;
+    while (atual != NULL)
+    {
+        for (int i = 0; i < atual->qtd_total_pratos; i++)
+        {
+            printf("%s - Quantidade: %d\n", atual->pratos[i].nome_prato, atual->pratos[i].qtd_prato);
+        }
+        atual = atual->proximo;
+    }
+    printf("\n");
+}

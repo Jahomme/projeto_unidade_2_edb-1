@@ -65,7 +65,7 @@ No* remover_fila(Fila* fila)
 No* consultar_primeiro(Fila* fila)
 {
   if(fila_vazia(fila)){
-    printf("A fila está vazia!\n");
+    printf("A fila está vazia!");
     return NULL;
   }else{
     return fila->dados[0];
@@ -79,12 +79,11 @@ void exibir_fila(Fila* fila)
   if(fila_vazia(fila)){
     printf("A fila está vazia!\n");
   }else{
-    printf("Fila de pedidos:\n");
+    printf("\nFila de pedidos:\n\n");
     for(int i = 0; i < fila->tamanho; i++){
         printf("Pedido numero %d: \n", i + 1);
-        imprime_a_lsl(fila->dados[i]);
+        imprime_a_lsl_fila(fila->dados[i]);
     }
-    printf("\n");
   }
 }
 
