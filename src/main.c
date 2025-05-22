@@ -114,26 +114,33 @@ int main()
                     }
                     else
                     {
-                        printf("Você quer mandar ele para fila da cozinha?\n1- Sim\n2 - Não\n");
-                        scanf("%d", &opcao);
-                        getchar();
-                        if (opcao == 1)
+                        do
                         {
-                            No *copia_do_pedido = copiar_no(pedido_atual);
-                            inserir_fila(&fila, copia_do_pedido);
-                            remover_no(&pedido, pedido_atual);
-                            pedido_atual = NULL;
-                            printf("Pedido enviado para a cozinha com sucesso!\n");
+                            printf("Você quer mandar ele para fila da cozinha?\n1- Sim\n2 - Não\n");
+                            scanf("%d", &opcao);
+                            getchar();
+                            if (opcao == 1)
+                            {
+                                No *copia_do_pedido = copiar_no(pedido_atual);
+                                inserir_fila(&fila, copia_do_pedido);
+                                remover_no(&pedido, pedido_atual);
+                                pedido_atual = NULL;
+                                printf("Pedido enviado para a cozinha com sucesso!\n");
+                                break;
+                            }
+                            else if (opcao == 2)
+                            {
+                                printf("\nPedido finalizado.\n");
+                                pedido_atual = NULL; // Ao finalizar, zera o pedido_atual para criar novo pedido depois
+                                break;
+                            }
+                            else
+                            {
+                                printf("\nOpção inválida.\n");
+                            }
                         }
-                        else if (opcao == 2)
-                        {
-                            printf("\nPedido finalizado.\n");
-                            pedido_atual = NULL; // Ao finalizar, zera o pedido_atual para criar novo pedido depois
-                        }
-                        else
-                        {
-                            printf("\nOpção inválida.\n");
-                        }
+
+                        while (opcao != 3);
                     }
                     break;
 
@@ -176,17 +183,16 @@ int main()
                     break;
 
                 case 5:
-                    if (pedido_atual == NULL)
+                    if (pedido_atual == NULL && pedido == NULL)
                     { // Se não tiver pedido, não manda.
                         printf("Pedido vazio, não há como mandar para cozinha!\n");
                         break;
                     }
 
-                    No *copia_do_pedido = copiar_no(pedido_atual);
+                    No *copia_do_pedido = copiar_no(pedido);
                     inserir_fila(&fila, copia_do_pedido);
 
-                    remover_no(&pedido, pedido_atual);
-                    pedido_atual = NULL;
+                    remocao_no_inicio_da_lsl(&pedido);
 
                     printf("Pedido enviado para a cozinha com sucesso!\n");
                     break;
