@@ -1,6 +1,30 @@
 #include "..\include\cardapio.h"
 #include <stdio.h>
 
+void menuPrincipal()
+{
+    printf("\n--- Menu Lista ---\n");
+    printf("1. Ver menu de atendimento.\n");
+    printf("2. Ver menu de cozinha.\n");
+    printf("3. Sair.\n");
+    printf("Escolha uma opção: ");
+}
+void menuSalao()
+{
+    printf("\n--- Menu Lista ---\n");
+    printf("1. Ver cardapio\n");
+    printf("2. Finalizar pedido.\n");
+    printf("3. Remover item do pedido.\n");
+    printf("4. Imprimir lista de pedidos.\n");
+    printf("5. Enviar primeiro pedido para cozinha.\n");
+    printf("6. Sair\n");
+    printf("Escolha uma opção: ");
+}
+void menuCozinha()
+{
+    printf("1. Imprimir lista da cozinha.\n");
+}
+
 void cardapio_entrada()
 {
     printf("Cardápio\n\n");

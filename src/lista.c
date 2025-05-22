@@ -43,6 +43,78 @@ No *obter_ultimo_no(No *cabeca)
     return atual;
 }
 
+// funcao para retornar uma copia da lista original
+No *copiar_no(No *original)
+{
+    if (original == NULL)
+    {
+        return NULL;
+    }
+
+    No *copia = malloc(sizeof(No));
+    copia->qtd_total_pratos = original->qtd_total_pratos;
+
+    if (original->qtd_total_pratos > 0) // Averiguando se há pratos na lista
+    {
+        copia->pratos = malloc(original->qtd_total_pratos * sizeof(Prato)); // Alocando espaço para caber os pratos
+        if (copia->pratos == NULL)
+        {
+            printf("Erro ao alocar memória para os pratos.\n");
+            free(copia);
+            return NULL;
+        }
+
+        for (int i = 0; i < original->qtd_total_pratos; i++)
+        { // Copiando os pratos
+            copia->pratos[i] = original->pratos[i];
+        }
+    }
+    else
+    {
+        copia->pratos = NULL;
+    }
+
+    copia->proximo = NULL;
+    return copia;
+}
+
+void remover_no(No **cabeca, No *alvo)
+{
+    if (*cabeca == NULL || alvo == NULL)
+    {
+        return;
+    }
+
+    No *anterior = NULL;
+    No *atual = *cabeca;
+
+    if (atual == alvo)
+    {
+        *cabeca = atual->proximo; // Aponte para o próximo
+    }
+    else
+    {
+        while (atual->proximo != NULL && atual != alvo)
+        {
+            anterior = atual;
+            atual = atual->proximo;
+        }
+        if (atual == NULL)
+        {
+            return; // Nó não encotrado
+        }
+
+        // Remove o nó da lista
+        anterior->proximo = atual->proximo;
+    }
+
+    if (alvo->pratos != NULL)
+    {
+        free(alvo->pratos);
+    }
+    free(alvo);
+}
+
 // Adiciona um prato ao pedido (nó) passado
 void adicionar_prato_ao_pedido(No *pedido, Prato prato)
 {
@@ -65,9 +137,11 @@ void adicionar_prato_ao_pedido(No *pedido, Prato prato)
     pedido->pratos[pedido->qtd_total_pratos] = prato;
     pedido->qtd_total_pratos++;
 }
+
 void remover_prato_do_pedido(const char *nome, int qtd, No *pedido)
 {
-    if (pedido == NULL || pedido->pratos == NULL) {
+    if (pedido == NULL || pedido->pratos == NULL)
+    {
         printf("Pedido vazio.\n");
         return;
     }
@@ -87,15 +161,15 @@ void remover_prato_do_pedido(const char *nome, int qtd, No *pedido)
 
             if (pedido->pratos[i].qtd_prato == 0)
             {
-                for (int j = i; j < pedido->qtd_total_pratos - 1; j++) //Desloca os pratos para a esquerda.
+                for (int j = i; j < pedido->qtd_total_pratos - 1; j++) // Desloca os pratos para a esquerda.
                 {
                     pedido->pratos[j] = pedido->pratos[j + 1];
                 }
-                pedido->qtd_total_pratos--; //Diminui os pratos existentes no nó.
+                pedido->qtd_total_pratos--; // Diminui os pratos existentes no nó.
 
                 if (pedido->qtd_total_pratos > 0)
                 {
-                    //Rearanja para acomadar a nova quantidade total de pratos no nó.
+                    // Rearanja para acomadar a nova quantidade total de pratos no nó.
                     Prato *novo_array = realloc(pedido->pratos, pedido->qtd_total_pratos * sizeof(Prato));
                     if (novo_array != NULL)
                     {
@@ -108,7 +182,7 @@ void remover_prato_do_pedido(const char *nome, int qtd, No *pedido)
                 }
                 else
                 {
-                    //Não tem mais pratos...
+                    // Não tem mais pratos...
                     free(pedido->pratos);
                     pedido->pratos = NULL;
                 }
@@ -119,7 +193,6 @@ void remover_prato_do_pedido(const char *nome, int qtd, No *pedido)
 
     printf("Prato '%s' não encontrado no pedido.\n", nome);
 }
-
 
 // Remove o nó do início da lista e libera memória dos pratos
 void remocao_no_inicio_da_lsl(No **cabeca)
@@ -136,7 +209,6 @@ void remocao_no_inicio_da_lsl(No **cabeca)
 }
 
 // Imprime a lista de pedidos e seus pratos
-// Função de impressão de valores da lista.
 void imprime_a_lsl(No *cabeca)
 {
     if (cabeca == NULL)
