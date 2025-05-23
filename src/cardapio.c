@@ -24,7 +24,8 @@ void menuCozinha()
 {
     printf("\n--- Menu Lista ---\n");
     printf("1. Imprimir lista da cozinha.\n");
-    printf("2. Sair\n");
+    printf("2. Liberar pedido da cozinha.\n");
+    printf("3. Sair\n");
 }
 
 void cardapio_entrada()

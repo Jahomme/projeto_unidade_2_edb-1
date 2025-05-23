@@ -237,6 +237,17 @@ void imprime_a_lsl(No *cabeca)
     printf("\n");
 }
 
+// Imprime apenas um no da lista
+void imprime_no(No *atual) {
+
+    printf("\nPratos do pedido:\n");
+    for (int i = 0; i < atual->qtd_total_pratos; i++)
+    {
+        printf("%s - Quantidade: %d\n", atual->pratos[i].nome_prato, atual->pratos[i].qtd_prato);
+    }
+}
+
+//
 void imprime_a_lsl_fila(No *cabeca)
 {
     if (cabeca == NULL)

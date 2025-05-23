@@ -29,4 +29,8 @@ run: $(PROG)
 	.\$(PROG)
 
 clean:
-	rm -f $(OBJS) $(PROG)
+ifeq ($(OS),Windows_NT)
+	del /f /q $(OBJS) $(PROG)
+else
+    rm -f $(OBJS) $(PROG)
+endif

@@ -14,6 +14,7 @@ int main()
     Fila fila;
     Prato prato;
     int opcao;
+    int opcao_cozinha;
     int op_cardapio; // opção dos cardápios
     int resposta, qtd;
 
@@ -145,6 +146,7 @@ int main()
                     break;
 
                 case 3:
+                    imprime_no(pedido_atual);
                     printf("Qual é o prato que você quer remover? 1- Entrada, 2- Principais, 3 - Sobremesa:\n");
                     scanf("%d", &op_cardapio);
                     getchar(); // limpa buffer
@@ -183,7 +185,7 @@ int main()
                     break;
 
                 case 5:
-                    if (pedido_atual == NULL && pedido == NULL)
+                    if (pedido == NULL)
                     { // Se não tiver pedido, não manda.
                         printf("Pedido vazio, não há como mandar para cozinha!\n");
                         break;
@@ -213,21 +215,25 @@ int main()
             do
             {
                 menuCozinha();
-                scanf("%d", &opcao);
+                scanf("%d", &opcao_cozinha);
                 getchar();
-                switch (opcao)
+                switch (opcao_cozinha)
                 {
                 case 1:
                     exibir_fila(&fila);
                     break;
                 case 2:
+                    printf("Pedido que saiu para o salao: ");
+                    imprime_a_lsl(remover_fila(&fila));
+                    break;
+                case 3:
                     printf("Saindo...\n");
                     break;
                 default:
                     printf("Opção inválida.\n");
                     break;
                 }
-            } while (opcao != 2);
+            } while (opcao_cozinha != 3);
         }
 
         else if (opcao == 3)
