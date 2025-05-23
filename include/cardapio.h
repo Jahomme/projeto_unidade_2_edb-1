@@ -1,6 +1,9 @@
 #ifndef CARDAPIO_H
 #define CARDAPIO_H
 
+void menuPrincipal();
+void menuSalao();
+void menuCozinha();
 void cardapio_entrada();
 void cardapio_principal();
 void cardapio_sobremesa();
