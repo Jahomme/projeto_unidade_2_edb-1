@@ -1,4 +1,4 @@
-#include "..\include\cardapio.h"
+#include "../include/cardapio.h"
 #include <stdio.h>
 
 void menuPrincipal()

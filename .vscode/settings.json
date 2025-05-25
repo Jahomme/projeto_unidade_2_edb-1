@@ -1,7 +1,8 @@
 {
     "files.associations": {
-        "*.embeddedhtml": "html",
-        "prato.h": "c",
-        "string.h": "c"
+      "*.embeddedhtml": "html",
+      "prato.h": "c",
+      "string.h": "c",
+      "lista.h": "c"
     }
 }

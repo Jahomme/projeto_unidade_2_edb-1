@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "..\include\lista.h"
-#include "..\include\prato.h"
+#include "../include/lista.h"
+#include "../include/prato.h"
 
 // Cria um novo nó pedido e adiciona no final da lista
 void criar_novo_no(No **cabeca)

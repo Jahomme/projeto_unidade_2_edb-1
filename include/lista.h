@@ -1,7 +1,7 @@
 #ifndef LISTA_H
 #define LISTA_H
 
-#include "..\include\prato.h"
+#include "../include/prato.h"
 
 typedef struct No
 {

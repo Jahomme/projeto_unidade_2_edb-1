@@ -1,4 +1,4 @@
-#include "..\include\prato.h"
+#include "../include/prato.h"
 #include <string.h>
 #include <stdlib.h>
 

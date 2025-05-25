@@ -1,10 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "..\include\lista.h"
-#include "..\include\prato.h"
-#include "..\include\cardapio.h"
-#include "..\include\fila.h"
+#include "../include/lista.h"
+#include "../include/prato.h"
+#include "../include/cardapio.h"
+#include "../include/fila.h"
 
 int main()
 {
