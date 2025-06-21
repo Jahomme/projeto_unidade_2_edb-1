@@ -76,7 +76,7 @@ int main()
                             criar_novo_no(&pedido);
                             pedido_atual = obter_ultimo_no(pedido);
                         }
-
+                        imprime_no(pedido_atual);
                         adicionar_prato_ao_pedido(pedido_atual, prato);
 
                         printf("Prato inserido.\n");
@@ -109,7 +109,7 @@ int main()
 
                 case 2:
                     // Finalizar pedido atual, ou seja, parar de inserir pratos nesse pedido
-                    if (pedido_atual == NULL)
+                    if (pedido_atual == NULL || pedido_atual->pratos == NULL)
                     {
                         printf("Não existem pratos inseridos no pedido para finalizar!\n");
                     }
@@ -136,7 +136,8 @@ int main()
                                 break;
                             }
 
-                            else{
+                            else
+                            {
                                 printf("Opção inválida.\n");
                             }
                         }
@@ -146,37 +147,45 @@ int main()
                     break;
 
                 case 3:
-                    imprime_no(pedido_atual);
-                    printf("Qual é o prato que você quer remover? 1- Entrada, 2- Principais, 3 - Sobremesa:\n");
-                    scanf("%d", &op_cardapio);
-                    getchar(); // limpa buffer
-
-                    switch (op_cardapio)
+                    if (pedido_atual == NULL)
                     {
-                    case 1:
-                        cardapio_entrada();
-                        scanf("%d", &resposta);
-                        printf("Qual quantidade?\n");
-                        scanf("%d", &qtd);
-                        remover_prato_do_pedido(entrada[resposta - 1], qtd, pedido_atual);
+                        printf("Sem pratos no pedido...\n");
                         break;
-                    case 2:
-                        cardapio_principal();
-                        scanf("%d", &resposta);
-                        printf("Qual quantidade?\n");
-                        scanf("%d", &qtd);
-                        remover_prato_do_pedido(principal[resposta - 1], qtd, pedido_atual);
-                        break;
-                    case 3:
-                        cardapio_sobremesa();
-                        scanf("%d", &resposta);
-                        printf("Qual quantidade?\n");
-                        scanf("%d", &qtd);
-                        remover_prato_do_pedido(sobremesa[resposta - 1], qtd, pedido_atual);
-                        break;
-                    default:
-                        printf("Não existe a opção desejada!\n");
-                        break;
+                    }
+                    else
+                    {
+                        imprime_no(pedido_atual);
+                        printf("Qual é o prato que você quer remover? 1- Entrada, 2- Principais, 3 - Sobremesa:\n");
+                        scanf("%d", &op_cardapio);
+                        getchar(); // limpa buffer
+
+                        switch (op_cardapio)
+                        {
+                        case 1:
+                            cardapio_entrada();
+                            scanf("%d", &resposta);
+                            printf("Qual quantidade?\n");
+                            scanf("%d", &qtd);
+                            remover_prato_do_pedido(entrada[resposta - 1], qtd, pedido_atual);
+                            break;
+                        case 2:
+                            cardapio_principal();
+                            scanf("%d", &resposta);
+                            printf("Qual quantidade?\n");
+                            scanf("%d", &qtd);
+                            remover_prato_do_pedido(principal[resposta - 1], qtd, pedido_atual);
+                            break;
+                        case 3:
+                            cardapio_sobremesa();
+                            scanf("%d", &resposta);
+                            printf("Qual quantidade?\n");
+                            scanf("%d", &qtd);
+                            remover_prato_do_pedido(sobremesa[resposta - 1], qtd, pedido_atual);
+                            break;
+                        default:
+                            printf("Não existe a opção desejada!\n");
+                            break;
+                        }
                     }
                     break;
 
@@ -185,7 +194,7 @@ int main()
                     break;
 
                 case 5:
-                    if (pedido == NULL)
+                    if (pedido == NULL || pedido_atual->pratos == NULL)
                     { // Se não tiver pedido, não manda.
                         printf("Pedido vazio, não há como mandar para cozinha!\n");
                         break;
@@ -193,13 +202,12 @@ int main()
 
                     No *copia_do_pedido = copiar_no(pedido);
                     inserir_fila(&fila, copia_do_pedido);
-
                     remocao_no_inicio(&pedido);
+                    pedido_atual = NULL;
 
                     printf("Pedido enviado para a cozinha com sucesso!\n");
                     break;
 
-                    break;
                 case 6:
                     printf("Saindo...\n");
                     break;
@@ -255,7 +263,8 @@ int main()
     }
     No *pedido_percorrer = remover_fila(&fila);
 
-    while(pedido_percorrer != NULL){
+    while (pedido_percorrer != NULL)
+    {
         remocao_no_inicio(&pedido_percorrer);
         pedido_percorrer = remover_fila(&fila);
     }

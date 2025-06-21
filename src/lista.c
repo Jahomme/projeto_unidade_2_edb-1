@@ -65,8 +65,23 @@ No *copiar_no(No *original)
         }
 
         for (int i = 0; i < original->qtd_total_pratos; i++)
-        { // Copiando os pratos
-            copia->pratos[i] = original->pratos[i];
+        {
+            copia->pratos[i].qtd_prato = original->pratos[i].qtd_prato;
+
+            copia->pratos[i].nome_prato = malloc(strlen(original->pratos[i].nome_prato) + 1);
+            if (copia->pratos[i].nome_prato == NULL)
+            {
+                printf("Erro ao alocar memória para nome do prato.\n");
+                // Libera tudo o que já foi alocado antes
+                for (int j = 0; j < i; j++)
+                {
+                    free(copia->pratos[j].nome_prato);
+                }
+                free(copia->pratos);
+                free(copia);
+                return NULL;
+            }
+            strcpy(copia->pratos[i].nome_prato, original->pratos[i].nome_prato);
         }
     }
     else
@@ -161,6 +176,8 @@ void remover_prato_do_pedido(const char *nome, int qtd, No *pedido)
 
             if (pedido->pratos[i].qtd_prato == 0)
             {
+                free(pedido->pratos[i].nome_prato);
+
                 for (int j = i; j < pedido->qtd_total_pratos - 1; j++) // Desloca os pratos para a esquerda.
                 {
                     pedido->pratos[j] = pedido->pratos[j + 1];
@@ -238,8 +255,8 @@ void imprime_a_lsl(No *cabeca)
 }
 
 // Imprime apenas um no da lista
-void imprime_no(No *atual) {
-
+void imprime_no(No *atual)
+{
     printf("\nPratos do pedido:\n");
     for (int i = 0; i < atual->qtd_total_pratos; i++)
     {
